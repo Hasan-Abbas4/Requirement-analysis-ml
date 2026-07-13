@@ -177,15 +177,15 @@ Software-Requirement-Classification/
 │
 ├── milestone-1/
 │   ├── cleaned_dataset.csv
-│   └── milestone1_data_collection_cleaning.ipynb
+│   └── Data Merging and Cleaning.ipynb
 │
 ├── milestone-2/
 │   ├── cleaned_dataset_v2.csv
-│   └── milestone2_statistical_insights_feature_selection.ipynb
+│   └── Project_data-statistical_insights_and_feature_selection.ipynb
 │
 ├── milestone-3/
-│   ├── model_training_evaluation.ipynb
-│   └── trained_model.pkl
+│   ├── final_experiment_ibccast.ipynb
+|   └── DSE TERM PAPER.pdf
 │
 ├── README.md
 └── requirements.txt
