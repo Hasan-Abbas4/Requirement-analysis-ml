@@ -2,58 +2,77 @@
 
 ## Project Overview
 
-This project aims to automatically classify software requirements into **Functional Requirements (FR)** and **Non-Functional Requirements (NFR)** using **Natural Language Processing (NLP)** and **Machine Learning** techniques.
+This project presents an end-to-end **Natural Language Processing (NLP)** and **Machine Learning** pipeline for automatically classifying software requirements into **Functional Requirements (FR)** and **Non-Functional Requirements (NFR)**.
 
-Software requirements are typically written in natural language, making manual classification time-consuming and prone to errors. This project develops an end-to-end machine learning pipeline that preprocesses requirement text, extracts meaningful features, trains multiple classification models, and predicts the category of unseen software requirements.
+Software Requirement Specifications (SRS) are typically written in natural language, making manual classification time-consuming, inconsistent, and prone to human error. This project automates the classification process using text preprocessing, feature engineering, and multiple supervised machine learning algorithms.
 
 ---
 
 # Problem Statement
 
-Software Requirement Specifications (SRS) contain large numbers of textual requirements that must be categorized accurately. Manual classification is inefficient and may introduce inconsistencies.
+Software Requirement Specifications contain hundreds or even thousands of textual requirements that must be categorized accurately during software development.
 
-The objective of this project is to automate this process by building a machine learning model capable of classifying software requirements as either:
+Manual classification of software requirements is:
 
-* **Functional Requirement (FR)**
-* **Non-Functional Requirement (NFR)**
+- Time-consuming
+- Error-prone
+- Difficult to maintain for large-scale software projects
+
+The objective of this project is to automatically classify software requirements into:
+
+- Functional Requirements (FR)
+- Non-Functional Requirements (NFR)
+
+using Natural Language Processing and Machine Learning techniques.
 
 ---
 
 # Project Objectives
 
-* Collect and merge multiple software requirement datasets.
-* Clean and preprocess textual requirement data.
-* Perform Exploratory Data Analysis (EDA).
-* Extract meaningful text features using TF-IDF.
-* Select the most informative features using Chi-Square feature selection.
-* Train and compare multiple machine learning models.
-* Evaluate model performance using standard classification metrics.
-* Develop a robust pipeline for automatic requirement classification.
+- Collect and merge multiple software requirement datasets.
+- Perform data cleaning and preprocessing.
+- Conduct Exploratory Data Analysis (EDA).
+- Convert textual requirements into numerical features using TF-IDF.
+- Perform feature selection using Chi-Square statistics.
+- Train and compare multiple machine learning models.
+- Evaluate model performance using weighted evaluation metrics.
+- Develop an automated software requirement classification pipeline.
 
 ---
 
 # Dataset
 
-The dataset was created by combining multiple publicly available software requirement datasets.
+The dataset was created by combining three publicly available software requirement datasets.
 
 ## Dataset Sources
 
-* Functional and Non-Functional Requirement Dataset
-* Extended Software Requirement Dataset
-* Annotated Requirement Dataset
+- PURE Requirements Dataset
+- Software Requirements Dataset
+- Extended Software Requirements Dataset
 
-After merging and preprocessing:
+After merging:
 
-* **Total Records:** 10,922
-* **Features**
+- **Original Dataset:** 12,973 software requirements
 
-  * `sentence`
-  * `label`
-  * `length`
-* **Target Variable**
+After preprocessing and cleaning:
 
-  * `0` → Functional Requirement
-  * `1` → Non-Functional Requirement
+- **Final Dataset:** 10,618 software requirements
+
+---
+
+## Features
+
+| Feature | Description |
+|----------|-------------|
+| sentence | Software requirement statement |
+| label | Target class (0 = FR, 1 = NFR) |
+
+### Target Variable
+
+| Label | Requirement Type |
+|--------|------------------|
+| 0 | Functional Requirement |
+| 1 | Non-Functional Requirement |
 
 ---
 
@@ -63,7 +82,7 @@ After merging and preprocessing:
 Raw Datasets
       │
       ▼
-Data Collection & Merging
+Dataset Collection & Merging
       │
       ▼
 Data Cleaning & Preprocessing
@@ -72,16 +91,19 @@ Data Cleaning & Preprocessing
 Exploratory Data Analysis (EDA)
       │
       ▼
-Text Vectorization (TF-IDF)
+TF-IDF Feature Engineering
       │
       ▼
-Feature Selection (Chi-Square)
+Chi-Square Feature Selection
+      │
+      ▼
+Train-Test Split
       │
       ▼
 Machine Learning Model Training
       │
       ▼
-Model Evaluation
+Performance Evaluation
       │
       ▼
 Requirement Classification
@@ -93,54 +115,89 @@ Requirement Classification
 
 The following preprocessing steps were performed:
 
-* Dataset merging
-* Duplicate removal
-* Missing value handling
-* Label standardization
-* Lowercase conversion
-* Punctuation removal
-* Stopword removal
-* Sentence length calculation
-* Conflict detection and removal
-* Outlier removal
+- Dataset merging
+- Duplicate removal
+- Missing value handling
+- Label standardization
+- Lowercase conversion
+- Special character removal
+- Punctuation removal
+- Tokenization
+- Stopword removal
+- Sentence cleaning
+
+These preprocessing steps reduced dataset noise and improved textual consistency before feature extraction.
 
 ---
 
-# Exploratory Data Analysis
+# Exploratory Data Analysis (EDA)
 
-The dataset was analyzed to understand its characteristics through:
+The dataset was analyzed using:
 
-* Class distribution
-* Requirement length distribution
-* Word frequency analysis
-* Label balance
-* Statistical summaries
-* Data visualization
+- Class distribution analysis
+- Requirement length analysis
+- Word frequency analysis
+- Statistical summaries
+- Dataset visualization
+- Label distribution analysis
 
 ---
 
 # Feature Engineering
 
-Textual requirements were converted into numerical features using:
+Textual software requirements were converted into numerical feature vectors using **TF-IDF (Term Frequency–Inverse Document Frequency)**.
 
-* **TF-IDF Vectorization**
+Initially, TF-IDF generated **1000 textual features**.
 
-Feature dimensionality was reduced using:
+To reduce dimensionality and retain only the most informative features, **Chi-Square Feature Selection** was applied.
 
-* **Chi-Square Feature Selection**
+- Original Features: **1000**
+- Selected Features: **500**
+
+These selected features were then used to train the machine learning models.
+
+---
+
+# Experimental Setup
+
+Three different experimental configurations were conducted.
+
+## Experiment 1 – Baseline Dataset
+
+- Original dataset
+- No preprocessing
+- No feature selection
+
+---
+
+## Experiment 2 – Cleaned Dataset
+
+- Data preprocessing applied
+- TF-IDF feature extraction
+- No feature selection
+
+---
+
+## Experiment 3 – Cleaned Dataset + Feature Selection
+
+- Data preprocessing
+- TF-IDF vectorization
+- Chi-Square feature selection
+
+This configuration was used for the complete comparison of machine learning classifiers.
 
 ---
 
 # Machine Learning Models
 
-Multiple classification algorithms were trained and compared, including:
+The following supervised learning algorithms were implemented and compared:
 
-* Logistic Regression
-* Support Vector Machine (SVM)
-* Naive Bayes
-* Random Forest
-
-The best-performing model was selected based on evaluation metrics.
+- Logistic Regression
+- Naive Bayes
+- Random Forest
+- K-Nearest Neighbors (KNN)
+- Linear Support Vector Classifier (Linear SVC)
+- XGBoost
 
 ---
 
@@ -148,25 +205,47 @@ The best-performing model was selected based on evaluation metrics.
 
 The models were evaluated using:
 
-* Accuracy
-* Precision
-* Recall
-* F1-Score
-* Confusion Matrix
+- Accuracy
+- Weighted Precision
+- Weighted Recall
+- Weighted F1-Score
+- Classification Report
+- Normalized Confusion Matrix
 
-These metrics were used to compare the performance of each classifier and identify the most effective model for software requirement classification.
+Weighted evaluation metrics were used because the dataset contains an imbalanced distribution of Functional and Non-Functional Requirements.
+
+---
+
+# Results
+
+| Model | Accuracy |
+|--------|----------|
+| Logistic Regression | 84.09% |
+| Naive Bayes | 84.89% |
+| Random Forest | **86.96%** |
+| K-Nearest Neighbors | 84.13% |
+| Linear SVC | 83.62% |
+| XGBoost | 85.88% |
+
+### Key Findings
+
+- Random Forest achieved the highest overall Accuracy and Weighted F1-Score.
+- Linear SVC achieved the highest recall for Non-Functional Requirements.
+- Data preprocessing significantly improved classification performance.
+- Chi-Square feature selection reduced dimensionality while maintaining competitive performance.
 
 ---
 
 # Technologies Used
 
-* Python
-* Pandas
-* NumPy
-* Scikit-learn
-* NLTK
-* Matplotlib
-* TF-IDF Vectorizer
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- NLTK
+- Matplotlib
+- XGBoost
+- TF-IDF Vectorizer
 
 ---
 
@@ -177,47 +256,52 @@ Software-Requirement-Classification/
 │
 ├── milestone-1/
 │   ├── cleaned_dataset.csv
-│   └── Data Merging and Cleaning.ipynb
+│   └── Data_Merging_and_Cleaning.ipynb
 │
 ├── milestone-2/
 │   ├── cleaned_dataset_v2.csv
-│   └── Project_data-statistical_insights_and_feature_selection.ipynb
+│   └── Statistical_Insights_and_Feature_Selection.ipynb
 │
 ├── milestone-3/
-│   ├── final_experiment_ibccast.ipynb
-|   └── DSE TERM PAPER.pdf
+│   ├── final_experiment_ibcast.ipynb
+│   ├── DSE_Term_Paper.pdf
+│   └── README.md
 │
-├── README.md
-└── requirements.txt
+├── requirements.txt
+└── LICENSE
 ```
 
 ---
 
 # Key Features
 
-* Automated software requirement classification
-* Natural Language Processing (NLP)
-* Complete data preprocessing pipeline
-* Exploratory Data Analysis (EDA)
-* TF-IDF feature extraction
-* Chi-Square feature selection
-* Multiple machine learning models
-* Performance comparison using evaluation metrics
-* Predictive classification of new software requirements
+- Automated Software Requirement Classification
+- Natural Language Processing (NLP)
+- End-to-End Machine Learning Pipeline
+- Exploratory Data Analysis (EDA)
+- TF-IDF Feature Engineering
+- Chi-Square Feature Selection
+- Comparative Machine Learning Analysis
+- Weighted Performance Evaluation
+- Normalized Confusion Matrix
+- Research-Oriented Experimental Framework
 
 ---
 
 # Future Improvements
 
-* Deep Learning models (LSTM, Bi-LSTM, BERT)
-* Multi-class requirement categorization
-* Web-based prediction interface
-* REST API deployment
-* Real-time requirement classification
-* Larger and more diverse datasets
+Possible extensions of this work include:
+
+- Deep Learning models (LSTM, Bi-LSTM)
+- Transformer-based models (BERT, RoBERTa)
+- Multi-class requirement classification
+- REST API deployment
+- Web-based prediction interface
+- Real-time requirement classification
+- Larger and more diverse software requirement datasets
 
 ---
 
 # Conclusion
 
-This project demonstrates how Natural Language Processing and Machine Learning can automate software requirement classification. By integrating data preprocessing, feature engineering, model training, and evaluation into a single pipeline, the system reduces manual effort and provides a scalable approach for analyzing Software Requirement Specifications (SRS). The project showcases practical applications of NLP in software engineering and highlights the effectiveness of machine learning for improving requirement analysis.
+This project demonstrates the effectiveness of combining **Natural Language Processing (NLP)** and **Machine Learning** for automatic software requirement classification. By integrating data preprocessing, TF-IDF feature engineering, Chi-Square feature selection, and comparative evaluation of multiple machine learning models, the proposed pipeline provides a scalable and effective solution for analyzing Software Requirement Specifications (SRS). The project highlights the practical application of AI in Software Engineering and contributes toward improving automated requirement analysis.
